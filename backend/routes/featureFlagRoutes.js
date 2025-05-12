@@ -3,7 +3,6 @@ import {
   getAllFeatureFlags,
   addFeatureFlag,
   toggleFeature,
-  addRelations,
   deleteFlag,
 } from "../controllers/featureFlagController.js";
 
@@ -12,14 +11,12 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// this is global: all my routes require API Key
-router.use(permissionsMiddleware);
+// this is global- all my routes require API Key and JsonWebToken Auth
+router.use(authMiddleware, permissionsMiddleware);
 
-// I will apply JWT Auth only to sensitive routes
-router.get("/feature-flags", getAllFeatureFlags); // this will have only API Key validation
-router.post("/feature-flags", authMiddleware, addFeatureFlag);
-router.put("/feature-flags/:id/toggle", authMiddleware, toggleFeature);
-router.put("/feature-flags/:id/add-relations", authMiddleware, addRelations);
-router.delete("/feature-flags/:id", authMiddleware, deleteFlag);
+router.get("/feature-flags", getAllFeatureFlags);
+router.post("/feature-flags", addFeatureFlag);
+router.put("/feature-flags/:id/toggle", toggleFeature);
+router.delete("/feature-flags/:id", deleteFlag);
 
 export default router;

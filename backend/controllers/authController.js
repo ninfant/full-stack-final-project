@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log("🛂 LOGIN ATTEMPT:", email, password);
+  console.log("LOGIN ATTEMPT:", email, password);
 // TODO: hacerlo con los usuarios reales de la BD y no hardcoded como esta ahora
   if (email === "admin@example.com" && password === "admin123") {
     const token = jwt.sign({ userId: 1, email }, process.env.JWT_SECRET, {

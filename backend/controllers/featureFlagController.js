@@ -2,7 +2,7 @@ import {
   _getAllFeatureFlags,
   _createFeatureFlag,
   _toggleFeatureFlag,
-  _addFlagRelations,
+  // _addFlagRelations,
   _deleteFeatureFlag,
 } from "../models/featureFlagModel.js";
 
@@ -18,11 +18,18 @@ const getAllFeatureFlags = async (req, res) => {
 };
 
 // POST /feature-flags
+// controllers/featureFlagController.js
+
 const addFeatureFlag = async (req, res) => {
-  const { name, customer = [], region = [] } = req.body;
+  const { name, enabled = false, customer = [], region = [] } = req.body;
   try {
-    const result = await _createFeatureFlag(name, customer, region);
-    res.status(201).json({ id: result.id });
+    const result = await _createFeatureFlag(name, enabled, customer, region);
+
+    res.status(201).json({
+      id: result.id,
+      name, //  devuelto directamente del request
+      enabled,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to create feature flag" });
@@ -40,26 +47,26 @@ const toggleFeature = async (req, res) => {
 
   try {
     const result = await _toggleFeatureFlag(id, enabled);
-    res.json(result);
+    res.json(result[0]); // forma correcta para devolver solo el objeto actualizado, importante: mandar solo el objeto, no el array
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to toggle feature flag" });
   }
 };
 
-// PUT /feature-flags/:id/add-relations
-const addRelations = async (req, res) => {
-  const { id } = req.params;
-  const { customer = [], region = [] } = req.body;
+// // PUT /feature-flags/:id/add-relations
+// const addRelations = async (req, res) => {
+//   const { id } = req.params;
+//   const { customer = [], region = [] } = req.body;
 
-  try {
-    const result = await _addFlagRelations(id, customer, region);
-    res.json(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to add relations" });
-  }
-};
+//   try {
+//     const result = await _addFlagRelations(id, customer, region);
+//     res.json(result);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: "Failed to add relations" });
+//   }
+// };
 
 // DELETE /feature-flags/:id
 const deleteFlag = async (req, res) => {
@@ -71,16 +78,6 @@ const deleteFlag = async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to delete feature flag" });
   }
-
-
-
-  
 };
 
-export {
-  getAllFeatureFlags,
-  addFeatureFlag,
-  toggleFeature,
-  addRelations,
-  deleteFlag,
-};
+export { getAllFeatureFlags, addFeatureFlag, toggleFeature, deleteFlag };
