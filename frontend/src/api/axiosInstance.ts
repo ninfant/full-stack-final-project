@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   config.headers = config.headers || {};
-  config.headers["x-api-key"] = import.meta.env.VITE_API_KEY;
+  config.headers["apikey"] = import.meta.env.VITE_API_KEY;
 
   const token = localStorage.getItem("jwt");
   if (token) {

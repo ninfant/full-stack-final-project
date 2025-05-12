@@ -4,12 +4,13 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useAppSelector } from "./hooks";
+import { usePostsSelector } from "./hooks";
 import LoginForm from "./components/LoginForm";
-import FeatureFlagList from "./components/FeatureFlagList";
+import DashboardPage from "./components/DashboardPage";
+import "./App.css";
 
 const App = () => {
-  const { token } = useAppSelector((state) => state.auth);
+  const { token } = usePostsSelector((state) => state.auth);
 
   return (
     <Router>
@@ -24,7 +25,7 @@ const App = () => {
         />
         <Route
           path="/dashboard"
-          element={token ? <FeatureFlagList /> : <Navigate to="/login" />}
+          element={token ? <DashboardPage /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

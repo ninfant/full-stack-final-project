@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useMyDispatch, usePostsSelector } from "../hooks";
 import { loginThunk } from "../features/auth/authThunks";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useAppDispatch();
+  const dispatch = useMyDispatch();
   const navigate = useNavigate();
-  const { loading, error, token } = useAppSelector((state) => state.auth);
+  const { loading, error, token } = usePostsSelector((state) => state.auth); // instead of useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     if (token) navigate("/dashboard");
