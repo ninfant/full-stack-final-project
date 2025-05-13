@@ -1,3 +1,9 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
 .form-card {
   margin-top: 3rem;
   padding: 2rem;
@@ -45,7 +51,7 @@
 }
 
 .submit-btn {
-  background-color: #007bff;
+  background-color: #2f3640;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -57,7 +63,6 @@
 .submit-btn:hover {
   background-color: #0056b3;
 }
-
 
 ul.flag-list {
   list-style: none;

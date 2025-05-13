@@ -18,7 +18,7 @@ const CustomerRegionPanel = () => {
     if (!customerName.trim()) return;
     try {
       await axios.post("/meta/customers", { name: customerName });
-      setMessage("✅ Customer created!");
+      setMessage("Customer created!");
       setCustomerName("");
     } catch (err) {
       console.error("Error creating customer:", err);
@@ -30,7 +30,7 @@ const CustomerRegionPanel = () => {
     if (!regionName.trim()) return;
     try {
       await axios.post("/meta/regions", { name: regionName });
-      setMessage("✅ Region created!");
+      setMessage("Region created!");
       setRegionName("");
     } catch (err) {
       console.error("Error creating region:", err);
@@ -56,10 +56,11 @@ const CustomerRegionPanel = () => {
         justifyContent="space-between"
       >
         {/* Customer Panel */}
-        <Paper sx={{ flex: 1, p: 3 }}>
+        <Paper sx={{ flex: 1, p: 2 }}>
           <Typography variant="h6">Add Customer</Typography>
           <TextField
             fullWidth
+            size="small"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
             placeholder="e.g. Netflix"
@@ -68,23 +69,42 @@ const CustomerRegionPanel = () => {
           <Button
             variant="contained"
             onClick={handleAddCustomer}
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 3,
+              backgroundColor: "#2f3640",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#1e232b",
+              },
+            }}
           >
             Create Customer
           </Button>
         </Paper>
 
         {/* Region Panel */}
-        <Paper sx={{ flex: 1, p: 3 }}>
+        <Paper sx={{ flex: 1, p: 2 }}>
           <Typography variant="h6">Add Region</Typography>
           <TextField
             fullWidth
+            size="small"
             value={regionName}
             onChange={(e) => setRegionName(e.target.value)}
             placeholder="e.g. LATAM"
             sx={{ mt: 2 }}
           />
-          <Button variant="contained" onClick={handleAddRegion} sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            onClick={handleAddRegion}
+            sx={{
+              mt: 3,
+              backgroundColor: "#2f3640",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#1e232b",
+              },
+            }}
+          >
             Create Region
           </Button>
         </Paper>
@@ -94,4 +114,3 @@ const CustomerRegionPanel = () => {
 };
 
 export default CustomerRegionPanel;
- 

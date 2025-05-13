@@ -1,4 +1,3 @@
-// src/components/FlagCreateForm.tsx
 import {
   Box,
   Button,
@@ -75,7 +74,7 @@ const FlagCreateForm = () => {
         p: 3,
         border: "1px solid #ccc",
         borderRadius: 2,
-        maxWidth: 500,
+        maxWidth: 300,
         margin: "0 auto",
         backgroundColor: "#f9f9f9",
       }}
@@ -153,9 +152,15 @@ const FlagCreateForm = () => {
       <Button
         type="submit"
         variant="contained"
-        color="primary"
         fullWidth
-        sx={{ mt: 3 }}
+        sx={{
+          mt: 3, //margin-top: 24px - Cada unidad (1) equivale a 8px
+          backgroundColor: "#2f3640",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "#1e232b",
+          },
+        }}
       >
         Create Flag
       </Button>
