@@ -1,9 +1,9 @@
-import dotenv from "dotenv";
 import axios from "axios";
+import dotenv from "dotenv";
 
-dotenv.config(); // esto debe ir antes de acceder a process.env
+dotenv.config();
 
-const { MFF_API_URL, MFF_API_KEY } = process.env;
+const { MFF_API_URL, MFF_API_KEY, MFF_JWT } = process.env;
 
 export const checkFeatureEnabled = async (flagName) => {
   try {

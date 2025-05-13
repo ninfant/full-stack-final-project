@@ -2,7 +2,6 @@ import {
   _getAllFeatureFlags,
   _createFeatureFlag,
   _toggleFeatureFlag,
-  // _addFlagRelations,
   _deleteFeatureFlag,
 } from "../models/featureFlagModel.js";
 
@@ -53,20 +52,6 @@ const toggleFeature = async (req, res) => {
     res.status(500).json({ error: "Failed to toggle feature flag" });
   }
 };
-
-// // PUT /feature-flags/:id/add-relations
-// const addRelations = async (req, res) => {
-//   const { id } = req.params;
-//   const { customer = [], region = [] } = req.body;
-
-//   try {
-//     const result = await _addFlagRelations(id, customer, region);
-//     res.json(result);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Failed to add relations" });
-//   }
-// };
 
 // DELETE /feature-flags/:id
 const deleteFlag = async (req, res) => {

@@ -12,7 +12,7 @@ export const fetchFlagsThunk = createAsyncThunk(
   "featureFlags/fetch", // featureFlags/fetch is just a redux action type prefix usado internamente para genererar las acciones pending, fulfilled etc
   async () => {
     const token = localStorage.getItem("jwt");
-    const res = await axios.get("/feature-flags", {
+    const res = await axios.get("/dashboard/flags-overview", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

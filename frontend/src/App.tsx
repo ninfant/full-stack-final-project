@@ -7,6 +7,7 @@ import {
 import { usePostsSelector } from "./hooks";
 import LoginForm from "./components/LoginForm";
 import DashboardPage from "./components/DashboardPage";
+import CustomerRegionPanel from "./components/CustomerRegionPanel";
 import "./App.css";
 
 const App = () => {
@@ -26,6 +27,10 @@ const App = () => {
         <Route
           path="/dashboard"
           element={token ? <DashboardPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/dashboard/meta"
+          element={token ? <CustomerRegionPanel /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

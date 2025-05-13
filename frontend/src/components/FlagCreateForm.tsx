@@ -40,7 +40,7 @@ const FlagCreateForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
-      setError("⚠️ Flag name is required");
+      setError("Flag name is required");
       return;
     }
 
@@ -54,7 +54,7 @@ const FlagCreateForm = () => {
         })
       ).unwrap();
 
-      setMessage("✅ Feature flag created successfully!");
+      setMessage("Feature flag created successfully!");
       setError(null);
       setName("");
       setEnabled(false);

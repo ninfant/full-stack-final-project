@@ -57,40 +57,6 @@ const _toggleFeatureFlag = (id, enabled) => {
     .update({ enabled }, ["id", "name", "enabled"]);
 };
 
-// // to add customer/region relationships
-// const _addFlagRelations = async (flagId, customerIds = [], regionIds = []) => {
-//   const trx = await db.transaction();
-//   try {
-//     if (customerIds.length) {
-//       const customerLinks = customerIds.map((customer_id) => ({
-//         feature_flag_id: flagId,
-//         customer_id,
-//       }));
-//       await trx("feature_flag_customer")
-//         .insert(customerLinks)
-//         .onConflict(["feature_flag_id", "customer_id"])
-//         .ignore();
-//     }
-
-//     if (regionIds.length) {
-//       const regionLinks = regionIds.map((region_id) => ({
-//         feature_flag_id: flagId,
-//         region_id,
-//       }));
-//       await trx("feature_flag_region")
-//         .insert(regionLinks)
-//         .onConflict(["feature_flag_id", "region_id"])
-//         .ignore();
-//     }
-
-//     await trx.commit();
-//     return { message: "Relations added" };
-//   } catch (err) {
-//     await trx.rollback(); //  undo all DB operations safely
-//     throw err;
-//   }
-// };
-
 // to delete a feature flag
 const _deleteFeatureFlag = (id) => {
   return db("feature_flag").where({ id }).del();
@@ -100,6 +66,5 @@ export {
   _getAllFeatureFlags,
   _createFeatureFlag,
   _toggleFeatureFlag,
-  // _addFlagRelations,
   _deleteFeatureFlag,
 };
