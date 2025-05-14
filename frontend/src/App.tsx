@@ -16,7 +16,7 @@ import "./styles/FlagCreateForm.css";
 
 const App = () => {
   const { token } = usePostsSelector((state) => state.auth);
-
+  console.log("🧪 VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
   return (
     <Router>
       <Routes>
