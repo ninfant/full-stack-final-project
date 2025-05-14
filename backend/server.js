@@ -33,7 +33,7 @@ app.use("/api", flagRoutes);
 app.use("/api/meta", customerRegionRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-// ✅ Servir React desde ./client/dist
+// Servir React desde ./client/dist
 app.use(express.static(path.join(__dirname, "./client/dist")));
 
 app.get("*", (req, res) => {
@@ -41,5 +41,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
