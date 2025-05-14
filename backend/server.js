@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "*", // o cámbialo si necesitas restringir
+    origin: "*", // o cámbialo si deseas restringir
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "apikey"],
   })
@@ -32,14 +32,14 @@ app.use("/api", flagRoutes);
 app.use("/api/meta", customerRegionRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-//  Servir el frontend desde /client/dist
-app.use(express.static(path.join(__dirname, "client", "dist")));
+// ✅ Servir archivos estáticos de React (desde ../frontend/dist)
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-// Fallback para rutas no-API (React routes)
+// ✅ Fallback: enviar index.html para rutas frontend
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
