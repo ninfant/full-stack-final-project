@@ -1,0 +1,5 @@
+# Ignorar cualquier .env en cualquier carpeta
+**.env
+.DS_Store
+
+# Ignorar 
