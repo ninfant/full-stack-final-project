@@ -1,10 +1,5 @@
-import { useEffect } from "react";
-import { useMyDispatch, usePostsSelector } from "../hooks";
-import {
-  fetchFlagsThunk,
-  toggleFlagThunk,
-  deleteFlagThunk,
-} from "../features/featureFlags/featureFlagThunks";
+import { useEffect, useState } from "react";
+import axios from "../api/axiosInstance";
 import {
   Box,
   Table,
@@ -21,25 +16,54 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
+type Row = {
+  id: number;
+  name: string;
+  enabled: boolean;
+  customer: string;
+  region: string;
+};
+
 const FlagDashboard = () => {
-  const dispatch = useMyDispatch();
-  const { flags, loading, error } = usePostsSelector(
-    (state) => state.featureFlags
-  );
+  const [rows, setRows] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    dispatch(fetchFlagsThunk());
-  }, [dispatch]);
-
-  const handleToggle = (id: number) => {
-    const flag = flags.find((f) => f.id === id);
-    if (flag) {
-      dispatch(toggleFlagThunk({ id: flag.id, enabled: !flag.enabled }));
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/dashboard/flags-overview");
+      setRows(res.data);
+    } catch (err) {
+      setError("❌ Failed to load flags");
+      console.error("Dashboard error:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleDelete = (id: number) => {
-    dispatch(deleteFlagThunk(id));
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleToggle = async (id: number, current: boolean) => {
+    try {
+      await axios.put(`/feature-flags/${id}/toggle`, {
+        enabled: !current,
+      });
+      fetchData();
+    } catch (err) {
+      console.error("❌ Toggle failed", err);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`/feature-flags/${id}`);
+      fetchData();
+    } catch (err) {
+      console.error("❌ Delete failed", err);
+    }
   };
 
   return (
@@ -48,7 +72,7 @@ const FlagDashboard = () => {
         Feature Flags Overview
       </Typography>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p>Loading flags...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <TableContainer component={Paper}>
@@ -62,9 +86,8 @@ const FlagDashboard = () => {
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
-
           <TableBody>
-            {flags.map((flag) => (
+            {rows.map((flag) => (
               <TableRow key={flag.id}>
                 <TableCell>{flag.name}</TableCell>
                 <TableCell>
@@ -78,7 +101,7 @@ const FlagDashboard = () => {
                 <TableCell>{flag.region || "—"}</TableCell>
                 <TableCell align="center">
                   <IconButton
-                    onClick={() => handleToggle(flag.id)}
+                    onClick={() => handleToggle(flag.id, flag.enabled)}
                     color={flag.enabled ? "success" : "default"}
                   >
                     <PowerSettingsNewIcon />
