@@ -1,3 +1,5 @@
-.DS_Store
+# Ignorar cualquier .env en cualquier carpeta
 *.env
+
 /backend/.env
+
