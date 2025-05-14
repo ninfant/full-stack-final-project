@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  // getAllFeatureFlags,
+  getAllFeatureFlags,
   addFeatureFlag,
   toggleFeature,
   deleteFlag,
@@ -14,7 +14,7 @@ const router = express.Router();
 // this is global- all my routes require API Key and JsonWebToken Auth
 router.use(authMiddleware, permissionsMiddleware);
 
-// router.get("/feature-flags", getAllFeatureFlags);
+router.get("/feature-flags", getAllFeatureFlags);
 router.post("/feature-flags", addFeatureFlag);
 router.put("/feature-flags/:id/toggle", toggleFeature);
 router.delete("/feature-flags/:id", deleteFlag);
