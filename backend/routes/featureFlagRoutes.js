@@ -12,7 +12,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 // this is global- all my routes require API Key and JsonWebToken Auth
-router.use(authMiddleware, permissionsMiddleware);
+router.use(authMiddleware);
 
 router.get("/feature-flags", getAllFeatureFlags);
 router.post("/feature-flags", addFeatureFlag);
