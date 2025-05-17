@@ -33,7 +33,7 @@ app.use("/api", flagRoutes);
 app.use("/api/meta", customerRegionRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-// Servir React desde ./client/dist
+// To Serve React from ./client/dist
 app.use(express.static(path.join(__dirname, "./client/dist")));
 
 app.get("*", (req, res) => {

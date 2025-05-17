@@ -12,6 +12,18 @@
       "protocol": "inspector",
       "skipFiles": ["<node_internals>/**"],
       "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "restart": true,
+      "protocol": "inspector",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/frontend"
     }
   ]
 }

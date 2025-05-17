@@ -10,7 +10,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// proteger todo con auth + api key
+// proteger todo con auth or api key
 router.use(authMiddleware);
 
 // Customer
