@@ -49,11 +49,11 @@ const flagSlice = createSlice({
       // toggle
       .addCase(toggleFlagThunk.fulfilled, (state, action) => {
         const updated = action.payload;
-        console.log(" Toggle fulfilled:", updated);
+        // console.log(" Toggle fulfilled:", updated);
 
         const idx = state.flags.findIndex((f) => f.id === updated.id);
         if (idx !== -1) {
-          // Forzar nueva referencia (muy importante)
+          // Forzar nueva referencia
           state.flags[idx] = {
             ...state.flags[idx],
             enabled: updated.enabled,

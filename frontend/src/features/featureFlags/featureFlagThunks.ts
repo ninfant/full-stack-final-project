@@ -48,7 +48,7 @@ export const toggleFlagThunk = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("➡️ Sent toggle:", id, enabled);
+    // console.log("Sent toggle:", id, enabled);
     return res.data;
   }
 );
